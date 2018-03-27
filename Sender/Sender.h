@@ -14,6 +14,8 @@ typedef struct _SenderProperties {
 
 	SOCKET ChannelSocket;
 	SOCKADDR_IN ChannelSocketService;
+
+	int Counter; // todo remove
 }SenderProperties;
 
 SenderProperties Sender;

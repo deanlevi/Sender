@@ -17,7 +17,7 @@
 #define NUM_OF_ERROR_BITS 15
 #define NUM_OF_BITS_IN_A_ROW_COLUMN 7
 #define SEND_RECEIVE_FLAGS 0
-#define MESSAGE_LENGTH 20
+#define MESSAGE_LENGTH 100
 #define SEND_MESSAGES_WAIT 20
 
 
@@ -110,10 +110,11 @@ void InitSender(char *argv[]) {
 		CloseSocketsAndWsaData();
 		exit(ERROR_CODE);
 	}
+	Sender.Counter = 0;
 }
 
 void HandleSendFile() {
-	FILE *InputFilePointer = fopen(Sender.InputFileToTransfer, "r");
+	FILE *InputFilePointer = fopen(Sender.InputFileToTransfer, "rb");
 	if (InputFilePointer == NULL) {
 		fprintf(stderr, "HandleSendFile couldn't open input file.\n");
 		CloseSocketsAndWsaData();
@@ -156,6 +157,8 @@ void SendData(unsigned long long DataToSend) {
 		CloseSocketsAndWsaData();
 		exit(ERROR_CODE);
 	}
+	Sender.Counter++;
+	printf("Num of buffer is: %d, Sent buffer is: %llu\n", Sender.Counter, DataToSend); // todo remove
 	Sleep(SEND_MESSAGES_WAIT);
 }
 
